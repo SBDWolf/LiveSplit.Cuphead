@@ -1,7 +1,9 @@
 ﻿using LiveSplit.Model;
 using LiveSplit.UI;
+using LiveSplit.UI.Components;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Reflection;
 using System.Threading;
@@ -13,9 +15,11 @@ namespace LiveSplit.Cuphead {
         public TimerModel Model { get; set; }
         public string ComponentName { get { return "Cuphead Autosplitter"; } }
         public IDictionary<string, Action> ContextMenuControls { get { return null; } }
+        private MemoryManager memory;
         private LogicManager logic;
         private LogManager log;
         private SplitterSettings settings;
+        private LayoutComponent ILTimeDisplay = null;
         private bool isRunning = false;
         private bool shouldLog = false;
         private bool isAutosplitting = false;
@@ -30,7 +34,9 @@ namespace LiveSplit.Cuphead {
         public Component(LiveSplitState state) {
             log = new LogManager();
             settings = new SplitterSettings();
-            logic = new LogicManager(settings);
+            memory = new MemoryManager();
+            logic = new LogicManager(settings, memory);
+            ILTimeDisplay = new LayoutComponent("LiveSplit.Cuphead.dll", new ILTimeComponent(memory));
 
             if (state != null) {
                 Model = new TimerModel() { CurrentState = state };
@@ -127,7 +133,48 @@ namespace LiveSplit.Cuphead {
                 }
             }
         }
-        public void Update(IInvalidator invalidator, LiveSplitState lvstate, float width, float height, LayoutMode mode) { }
+        public void Update(IInvalidator invalidator, LiveSplitState lvstate, float width, float height, LayoutMode mode) {
+            try
+            {
+                IList<ILayoutComponent> components = lvstate.Layout.LayoutComponents;
+                bool hasILTimeDisplay = false;
+
+                for (int i = components.Count - 1; i >= 0; i--)
+                {
+                    ILayoutComponent component = components[i];
+                    if (component.Component is ILTimeComponent)
+                    {
+                        if (!settings.ShowILTimeDisplay || hasILTimeDisplay)
+                        {
+                            components.Remove(component);
+                        }
+                        hasILTimeDisplay = true;
+                    }
+                    else if (component.Component is Component && invalidator == null && width == 0 && height == 0)
+                    {
+                        components.Remove(component);
+
+                        if (!hasILTimeDisplay && settings.ShowILTimeDisplay)
+                        {
+                            components.Insert(i, ILTimeDisplay);
+                            hasILTimeDisplay = true;
+                        }
+                    }
+                }
+
+                if (settings.ShowILTimeDisplay && !hasILTimeDisplay)
+                {
+                    components.Add(ILTimeDisplay);
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                log.AddEntry(new EventLogEntry("An exception occurred when trying to update Components. Message: " + ex.ToString()));
+            }
+
+        }
         public void OnReset(object sender, TimerPhase e) {
             logic.Reset();
             if (!isAutosplitting) {

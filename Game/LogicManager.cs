@@ -13,8 +13,8 @@ namespace LiveSplit.Cuphead {
         private string lastSceneName, lastSceneSeen;
         private DateTime splitLate;
 
-        public LogicManager(SplitterSettings settings) {
-            Memory = new MemoryManager();
+        public LogicManager(SplitterSettings settings, MemoryManager memory) {
+            Memory = memory;
             Settings = settings;
             splitLate = DateTime.MaxValue;
         }

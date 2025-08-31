@@ -31,6 +31,7 @@
             this.rdAlpha = new System.Windows.Forms.RadioButton();
             this.chkScoreBoardTiming = new System.Windows.Forms.CheckBox();
             this.chkScoreBoardTimingSaltbaker = new System.Windows.Forms.CheckBox();
+            this.chkILTime = new System.Windows.Forms.CheckBox();
             this.flowMain.SuspendLayout();
             this.flowOptions.SuspendLayout();
             this.SuspendLayout();
@@ -56,7 +57,7 @@
             this.flowMain.Location = new System.Drawing.Point(0, 0);
             this.flowMain.Margin = new System.Windows.Forms.Padding(0);
             this.flowMain.Name = "flowMain";
-            this.flowMain.Size = new System.Drawing.Size(579, 27);
+            this.flowMain.Size = new System.Drawing.Size(646, 27);
             this.flowMain.TabIndex = 0;
             this.flowMain.WrapContents = false;
             this.flowMain.DragDrop += new System.Windows.Forms.DragEventHandler(this.flowMain_DragDrop);
@@ -73,10 +74,11 @@
             this.flowOptions.Controls.Add(this.rdAlpha);
             this.flowOptions.Controls.Add(this.chkScoreBoardTiming);
             this.flowOptions.Controls.Add(this.chkScoreBoardTimingSaltbaker);
+            this.flowOptions.Controls.Add(this.chkILTime);
             this.flowOptions.Location = new System.Drawing.Point(0, 0);
             this.flowOptions.Margin = new System.Windows.Forms.Padding(0);
             this.flowOptions.Name = "flowOptions";
-            this.flowOptions.Size = new System.Drawing.Size(579, 27);
+            this.flowOptions.Size = new System.Drawing.Size(646, 27);
             this.flowOptions.TabIndex = 0;
             // 
             // lblSort
@@ -136,6 +138,17 @@
             this.chkScoreBoardTimingSaltbaker.UseVisualStyleBackColor = true;
             this.chkScoreBoardTimingSaltbaker.CheckedChanged += new System.EventHandler(this.chkScoreBoardTimingSaltbaker_CheckedChanged);
             // 
+            // chkILTime
+            // 
+            this.chkILTime.AutoSize = true;
+            this.chkILTime.Location = new System.Drawing.Point(582, 3);
+            this.chkILTime.Name = "chkILTime";
+            this.chkILTime.Size = new System.Drawing.Size(61, 17);
+            this.chkILTime.TabIndex = 6;
+            this.chkILTime.Text = "IL Time";
+            this.chkILTime.UseVisualStyleBackColor = true;
+            this.chkILTime.CheckedChanged += new System.EventHandler(this.chkILTime_CheckedChanged);
+            // 
             // SplitterSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -146,7 +159,7 @@
             this.Controls.Add(this.flowMain);
             this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "SplitterSettings";
-            this.Size = new System.Drawing.Size(579, 27);
+            this.Size = new System.Drawing.Size(646, 27);
             this.Load += new System.EventHandler(this.Settings_Load);
             this.flowMain.ResumeLayout(false);
             this.flowMain.PerformLayout();
@@ -165,6 +178,7 @@
 		private System.Windows.Forms.RadioButton rdType;
 		private System.Windows.Forms.RadioButton rdAlpha;
         private System.Windows.Forms.CheckBox chkScoreBoardTiming;
+        private System.Windows.Forms.CheckBox chkILTime;
         private System.Windows.Forms.CheckBox chkScoreBoardTimingSaltbaker;
     }
 }

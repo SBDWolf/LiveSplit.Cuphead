@@ -75,28 +75,28 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Game\SplitName.cs" />
     <Compile Include="Game\Grade.cs" />
     <Compile Include="Game\Levels.cs" />
-    <Compile Include="Game\LogicManager.cs" />
-    <Compile Include="Game\Mode.cs" />
-    <Compile Include="Game\PlayerId.cs" />
+    <Compile Include="Game\MemoryManager.cs" />
     <Compile Include="Memory\AutoDeref.cs" />
     <Compile Include="Memory\FindOffset.cs" />
+    <Compile Include="Memory\FindPointerSignature.cs" />
     <Compile Include="Memory\IFindPointer.cs" />
     <Compile Include="Memory\MemInfo.cs" />
+    <Compile Include="Memory\MemoryReader.cs" />
     <Compile Include="Memory\MemorySearcher.cs" />
     <Compile Include="Memory\Module64.cs" />
     <Compile Include="Memory\ModuleInfo.cs" />
     <Compile Include="Memory\PointerVersion.cs" />
     <Compile Include="Memory\ProgramPointer.cs" />
-    <Compile Include="Memory\FindPointerSignature.cs" />
     <Compile Include="Memory\WinAPI.cs" />
+    <Compile Include="Game\Mode.cs" />
+    <Compile Include="Game\PlayerId.cs" />
+    <Compile Include="Game\SplitName.cs" />
+    <Compile Include="Game\LogicManager.cs" />
     <Compile Include="UI\Component.cs" />
     <Compile Include="UI\Factory.cs" />
     <Compile Include="Game\LogManager.cs" />
-    <Compile Include="Game\MemoryManager.cs" />
-    <Compile Include="Memory\MemoryReader.cs" />
     <Compile Include="UI\SplitterSettings.cs">
       <SubType>UserControl</SubType>
     </Compile>

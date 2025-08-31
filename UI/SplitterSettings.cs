@@ -10,6 +10,7 @@ namespace LiveSplit.Cuphead {
 		public List<SplitInfo> Splits { get; private set; }
 		public bool SplitAfterScoreboard { get; set; }
 		public bool SplitAfterScoreboardSaltbaker { get; set; }
+		public bool ShowILTimeDisplay { get; set; }
         private bool isLoading;
 		public SplitterSettings() {
 			isLoading = true;
@@ -44,6 +45,7 @@ namespace LiveSplit.Cuphead {
             chkScoreBoardTiming.Checked = SplitAfterScoreboard;
 			chkScoreBoardTimingSaltbaker.Checked = SplitAfterScoreboardSaltbaker;
 			chkScoreBoardTimingSaltbaker.Enabled = chkScoreBoardTiming.Checked;
+            chkILTime.Checked = ShowILTimeDisplay;
 
             isLoading = false;
 			this.flowMain.ResumeLayout(true);
@@ -93,6 +95,7 @@ namespace LiveSplit.Cuphead {
 
 			SplitAfterScoreboard = chkScoreBoardTiming.Checked;
             SplitAfterScoreboardSaltbaker = chkScoreBoardTimingSaltbaker.Checked;
+			ShowILTimeDisplay = chkILTime.Checked;
 
 			if (SplitAfterScoreboard)
 				chkScoreBoardTimingSaltbaker.Enabled = true;
@@ -119,6 +122,10 @@ namespace LiveSplit.Cuphead {
             XmlElement xmlSplitAfterScoreboardSaltbaker = document.CreateElement("SplitAfterScoreboardSaltbaker");
             xmlSplitAfterScoreboardSaltbaker.InnerText = SplitAfterScoreboardSaltbaker.ToString();
             xmlSettings.AppendChild(xmlSplitAfterScoreboardSaltbaker);
+
+            XmlElement xmlShowILTimeDisplay = document.CreateElement("ShowILTimeDisplay");
+            xmlShowILTimeDisplay.InnerText = ShowILTimeDisplay.ToString();
+            xmlSettings.AppendChild(xmlShowILTimeDisplay);
 
             return xmlSettings;
 		}
@@ -148,6 +155,16 @@ namespace LiveSplit.Cuphead {
                 if (bool.TryParse(splitAfterScoreboardSaltbaker.InnerText, out result))
                 {
                     SplitAfterScoreboardSaltbaker = result;
+                }
+            }
+
+            XmlNode showILTimeDisplay = settings.SelectSingleNode(".//ShowILTimeDisplay");
+            if (showILTimeDisplay != null)
+            {
+                bool result;
+                if (bool.TryParse(showILTimeDisplay.InnerText, out result))
+                {
+                    ShowILTimeDisplay = result;
                 }
             }
         }
@@ -217,6 +234,11 @@ namespace LiveSplit.Cuphead {
         private void chkScoreBoardTimingSaltbaker_CheckedChanged(object sender, EventArgs e)
         {
 			UpdateSplits();
+        }
+
+        private void chkILTime_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSplits();
         }
 
     }
